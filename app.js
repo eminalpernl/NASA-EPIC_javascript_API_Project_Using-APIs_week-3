@@ -1,7 +1,7 @@
 'use strict';
 const body = document.getElementsByTagName('body');
-const URL = 'https://epic.gsfc.nasa.gov/api/enhanced/date/2015-10-31';
-const imageUrl ='https://epic.gsfc.nasa.gov/api/natural/date/{$year}-{$month}-{$day}'
+const API = 'https://epic.gsfc.nasa.gov/api/enhanced/date/';
+//const imageUrl ='https://epic.gsfc.nasa.gov/api/natural/date/{$year}-{$month}-{$day}'
 
 async function fetchData(url) {
   const response = await fetch(url);
@@ -10,25 +10,71 @@ async function fetchData(url) {
   return data;
 }
 
-fetchData(URL);
+//fetchData(URL);
+const dateInput = document.getElementById("date-input");
+const button = document.getElementById('button');
 
-async function fetchImageDate(url) {
-  const dataContainer = document.createElement("select")
-  body[0].appendChild(dataContainer);
-  //const selection = document.getElementById('date-selection'); 
-  const jsonData = await fetchData(url);
-  console.log(jsonData);
-  for (let index = 0; index < jsonData.length; index++) {
-    const element = document.createElement('option');
-    element.value = jsonData[index].date;
-    element.textContent = jsonData[index].date;
-   // selection.appendChild(element);
-    dataContainer.appendChild(element);
-  }
-//;
-}
 
-fetchImageDate(URL);
+
+// const displayInput = function() {
+//     const value = dateInput.value;
+//     console.log(value);
+//     return value;
+// };
+
+// button.addEventListener('click', displayInput);
+
+
+async function fetchImageDate2() {
+    
+    
+    const dateList = document.createElement("select");
+    body[0].appendChild(dateList);
+    const URL = `${API}${dateInput.value}`;
+    const jsonData = await fetchData(URL);
+    for (let index = 0; index < jsonData.length; index++) {
+        const element = document.createElement('option');
+        element.value = jsonData[index].date;
+        element.textContent = jsonData[index].date;
+        dateList.appendChild(element);
+      }
+    //   console.log(URL);
+    //   console.log(dateInput.value);
+    //   console.log(dateList);
+};
+
+// fetchImageDate2();
+
+
+// async function fetchImageDate(url, query) {
+//   const urlDate = `${url}${query}`;
+//   const dateInput = document.getElementById('date-input');
+//   const dateList = document.createElement("select");
+//   const submit = document.getElementById('submit');
+//   body[0].appendChild(dateList);
+//   submit.addEventListener('click', async (event) => {
+//     const inputValue = dateInput.target.value;
+//         // const pokeImg = document.getElementById('poke-img');
+//         const imgFetch = await (await fetch(grabDate)).json();
+//         console.log(inputValue);
+//         // pokeImg.src = imgFetch.sprites.other.home.front_default;
+//         // pokeImg.alt = imgFetch.forms[0].name;
+//       });
+//   //const selection = document.getElementById('date-selection'); 
+//   const jsonData = await fetchData(urlDate);
+//   console.log(jsonData);
+//   for (let index = 0; index < jsonData.length; index++) {
+//     const element = document.createElement('option');
+//     element.value = jsonData[index].date;
+//     element.textContent = jsonData[index].date;
+//    // selection.appendChild(element);
+//     dateList.appendChild(element);
+//   }
+// //;
+// }
+
+// fetchImageDate(URL, '2022-01-01');
+
 // async function fetchImage() {
 //   const selected = document.getElementById('poke-list');
 //   selected.addEventListener('change', async (event) => {
@@ -51,6 +97,14 @@ fetchImageDate(URL);
 //   }
 // }
 
-//main();
+function main() {
+    const submit = document.getElementById('button');
+    submit.addEventListener('click', fetchImageDate2)
+    // await fetchData(URL);
+    // await fetchAndPopulatePokemons(URL);
+    // await fetchImage();
 
-//window.addEventListener('load', main);
+}
+
+
+window.addEventListener('load', main);
