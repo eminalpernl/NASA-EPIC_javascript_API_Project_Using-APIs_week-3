@@ -1,6 +1,9 @@
 'use strict';
 const body = document.getElementsByTagName('body');
 const API = 'https://epic.gsfc.nasa.gov/api/enhanced/date/';
+const dateInput = document.getElementById("date-input");
+const button = document.getElementById('button');
+const listWrap = document.createElement('div');
 //const imageUrl ='https://epic.gsfc.nasa.gov/api/natural/date/{$year}-{$month}-{$day}'
 
 async function fetchData(url) {
@@ -11,8 +14,7 @@ async function fetchData(url) {
 }
 
 //fetchData(URL);
-const dateInput = document.getElementById("date-input");
-const button = document.getElementById('button');
+
 
 
 
@@ -26,10 +28,12 @@ const button = document.getElementById('button');
 
 
 async function fetchImageDate2() {
+
     
-    
+    listWrap.innerHTML = "";
     const dateList = document.createElement("select");
-    body[0].appendChild(dateList);
+    listWrap.appendChild(dateList);
+    body[0].appendChild(listWrap);
     const URL = `${API}${dateInput.value}`;
     const jsonData = await fetchData(URL);
     for (let index = 0; index < jsonData.length; index++) {
@@ -100,9 +104,6 @@ async function fetchImageDate2() {
 function main() {
     const submit = document.getElementById('button');
     submit.addEventListener('click', fetchImageDate2)
-    // await fetchData(URL);
-    // await fetchAndPopulatePokemons(URL);
-    // await fetchImage();
 
 }
 
