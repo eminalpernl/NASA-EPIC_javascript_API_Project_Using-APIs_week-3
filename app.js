@@ -1,6 +1,7 @@
 'use strict';
 let slideIndex = 1;
 const body = document.getElementsByTagName('body');
+const userInterface = document.getElementsByClassName('user-interface');
 const API = 'https://api.nasa.gov/EPIC/api/natural/date/';
 const imgApi = 'https://api.nasa.gov/EPIC/archive/natural/';
 const dateInput = document.getElementById("date-input");
@@ -24,7 +25,7 @@ async function fetchImageDate2() {
     dateList.className='select-box';
     listWrap.className= 'list-wrap';
     listWrap.appendChild(dateList);
-    body[0].appendChild(listWrap);
+    userInterface[0].appendChild(listWrap);
     const URL = `${API}${dateInput.value}?api_key=${API_KEY}`;
     console.log(URL);
     const jsonData = await fetchData(URL);
@@ -72,7 +73,7 @@ async function fetchImage() {
     const imgUrl = `${imgApi}${inputValue}/png/${grabImageId}.png?api_key=${API_KEY}`;
     console.log(grabImageId);
     imgWrap.appendChild(earthImg);
-    body[0].appendChild(imgWrap);
+    userInterface[0].appendChild(imgWrap);
     console.log(imgUrl);
     earthImg.className = 'earth-image';
     earthImg.src = imgUrl;
@@ -114,7 +115,7 @@ async function makeImageSlide(){
     singleImageDiv.appendChild(img);
     singleImageDiv.appendChild(captionDiv);
     slideWrap.appendChild(singleImageDiv);
-    body[0].appendChild(slideWrap);
+    userInterface[0].appendChild(slideWrap);
   }
   
   slideWrap.appendChild(slidePrevButton);
@@ -123,7 +124,7 @@ async function makeImageSlide(){
   const runSlides = await showSlides(slideIndex);
 }
 
-async function plusSlides(n) {
+function plusSlides(n) {
   showSlides(slideIndex += n);
 }
 
