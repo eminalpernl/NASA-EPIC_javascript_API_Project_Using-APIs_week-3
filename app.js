@@ -101,28 +101,74 @@ async function makeImageSlide(){
   for (let index = 0; index < ImgIdList.length; index++) {
     const singleImageDiv = document.createElement('div');
     singleImageDiv.className = 'single-image-div';
-    const imgOrder = document.createElement('div');
-    imgOrder.className = 'number-text';
+
     const img = document.createElement('img');
     const captionDiv = document.createElement('div');
-    captionDiv.className='text';
-    captionDiv.innerText=`caption ${index+1}`;
+    captionDiv.className='img-counter';
+    captionDiv.innerText=`${index+1}/${ImgIdList.length}`;
     const imgUrl = `${imgApi}${inputValue}/png/${ImgIdList[index].value}.png?api_key=${API_KEY}`;
     img.alt = 'earth';
     img.src = imgUrl;
     img.classList='img-on-slides';
-    singleImageDiv.appendChild(imgOrder);
     singleImageDiv.appendChild(img);
     singleImageDiv.appendChild(captionDiv);
     slideWrap.appendChild(singleImageDiv);
     userInterface[0].appendChild(slideWrap);
+
+    const infoPageCont = document.createElement('div'); // info-page
+    infoPageCont.className = 'info-page-cont'; // info-page
+    infoPageCont.innerHTML = `
+
+
+      <ul>
+        <li class="info-items";><a href="";>${ImgIdList[index].value}</a></li>
+        <li class="info-items";>Distance to Earth:</li>
+        <li class="info-items";>Distance to Sun:</li>
+        <li class="info-items";>Sun to Earth:</li>
+      </ul>
+
+    
+    
+    
+    `;
+    singleImageDiv.appendChild(infoPageCont);
+
+
   }
   
   slideWrap.appendChild(slidePrevButton);
   slideWrap.appendChild(slideNexButton);
 
+  // for (let index = 0; index < ImgIdList.length; index++) {
+  //   const infoPageCont = document.createElement('div'); // info-page
+  //   infoPageCont.className = 'info-page-cont'; // info-page
+  //   infoPageCont.innerHTML = `
+  //   <h3><a href="";>${ImgIdList[index].value}</a></h3></br>
+  //   <p>Distance to Earth:</p>
+  //   `;
+  //   singleImageDiv[0].appendChild(infoPageCont);
+  // }
+
+
   const runSlides = await showSlides(slideIndex);
 }
+
+
+
+
+// async function createInfoPage(a) {
+//   const infoPageCont = document.createElement('div');
+//   infoPageCont.className = 'info-page-cont';
+//   infoPageCont.innerHTML = `
+//     <h3><a href="";>${a[index]}</a></h3></br>
+//     <p>Distance to Earth:</p>
+//   `;
+
+
+  
+// }
+
+
 
 function plusSlides(n) {
   showSlides(slideIndex += n);
@@ -138,7 +184,7 @@ async function showSlides(n) {
   for (i = 0; i < slides.length; i++) {
     slides[i].style.display = "none";
   }
-  slides[slideIndex-1].style.display = "block";
+  slides[slideIndex-1].style.display = "flex";
 }
 
 
