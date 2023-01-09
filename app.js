@@ -8,6 +8,7 @@ const dateInput = document.getElementById("date-input");
 const button = document.getElementById('button');
 const listWrap = document.createElement('div');
 const API_KEY = 'CR6PmDZLb5fTpRM9XpBhg7Ptm55c56rv8q5xfzxq';
+const slideCont = document.createElement('div');
 
 async function fetchData(url) {
   const response = await fetch(url);
@@ -40,27 +41,6 @@ async function fetchImageDate2() {
 };
 
 
-
-// async function fetchImage() {
-//   const imgWrap = document.createElement('div');
-//   imgWrap.className = 'img-wrap';
-//   const earthImg = document.createElement('img');
-//   const selected = document.getElementsByClassName('select-box');
-//   const inputValue = (dateInput.value).split('-').join('/');
-//   selected[0].addEventListener('change', async (event) => {
-//     imgWrap.innerHTML='';
-//     const grabImageId = event.target.value;
-//     const imgUrl = `${imgApi}${inputValue}/png/${grabImageId}.png?api_key=${API_KEY}`;
-//     console.log(grabImageId);
-//     imgWrap.appendChild(earthImg);
-//     body[0].appendChild(imgWrap);
-//     console.log(imgUrl);
-//     earthImg.className = 'earth-image';
-//     earthImg.src = imgUrl;
-//     earthImg.alt = 'Earth';
-//   });
-// }
-
 async function fetchImage() {
   const imgWrap = document.createElement('div');
   imgWrap.className = 'img-wrap';
@@ -85,6 +65,10 @@ async function fetchImage() {
 }
 
 async function makeImageSlide(){
+  slideCont.innerHTML = '';
+  slideCont.className= 'slide-cont';
+  userInterface[0].appendChild(slideCont);
+  const URL = `${API}${dateInput.value}?api_key=${API_KEY}`
   const slideNexButton = document.createElement('a');
   slideNexButton.className = 'next';
   slideNexButton.setAttribute('onclick', "plusSlides(1)");
@@ -97,16 +81,19 @@ async function makeImageSlide(){
   const ImgIdList = document.getElementsByTagName('option');
   const slideWrap = document.createElement('div');
   slideWrap.className = 'slide-wrap';
+  const jsonData = await fetchData(URL);
+  console.log(URL);
+
   
-  for (let index = 0; index < ImgIdList.length; index++) {
+  
+  for (let index = 0; index < jsonData.length; index++) {
     const singleImageDiv = document.createElement('div');
     singleImageDiv.className = 'single-image-div';
-
     const img = document.createElement('img');
     const captionDiv = document.createElement('div');
     captionDiv.className='img-counter';
-    captionDiv.innerText=`${index+1}/${ImgIdList.length}`;
-    const imgUrl = `${imgApi}${inputValue}/png/${ImgIdList[index].value}.png?api_key=${API_KEY}`;
+    captionDiv.innerText=`${index+1}/${jsonData.length}`;
+    const imgUrl = `${imgApi}${inputValue}/png/${jsonData[index].image}.png?api_key=${API_KEY}`;
     img.alt = 'earth';
     img.src = imgUrl;
     img.classList='img-on-slides';
@@ -115,22 +102,31 @@ async function makeImageSlide(){
     slideWrap.appendChild(singleImageDiv);
     userInterface[0].appendChild(slideWrap);
 
+
+    const sunCoords = jsonData[index].sun_j2000_position; //distances
+    const dscvrCoords = jsonData[index].dscovr_j2000_position; //distances
+    const moonCoords = jsonData[index].lunar_j2000_position;
+    const sunDistance = Math.floor(Math.sqrt(sunCoords.x**2 + sunCoords.y**2 + sunCoords.z**2)); //distances
+    const earthDistance = Math.floor(Math.sqrt(dscvrCoords.x**2 + dscvrCoords.y**2 + dscvrCoords.z**2));
+    const moonDistance = Math.floor(Math.sqrt(moonCoords.x**2 + moonCoords.y**2 + moonCoords.z**2));
+
+
+
     const infoPageCont = document.createElement('div'); // info-page
     infoPageCont.className = 'info-page-cont'; // info-page
     infoPageCont.innerHTML = `
-
-
-      <ul>
-        <li class="info-items";><a href="";>${ImgIdList[index].value}</a></li>
-        <li class="info-items";>Distance to Earth:</li>
-        <li class="info-items";>Distance to Sun:</li>
-        <li class="info-items";>Sun to Earth:</li>
+      <ul class="info-ul";>
+        <li class="info-items info-title ";>Image Information</li>
+        <li class="info-items info-bullets";>Date: ${jsonData[index].date.split(" ")[0]}</li>
+        <li class="info-items info-bullets";><a href="${imgUrl}"; target="_blank"><i class="fa-solid fa-download"></i>  ${ImgIdList[index].value}.png</a></li>
+        <li class="info-items info-bullets";>DSCVR to Earth: ${earthDistance} km</li>
+        <li class="info-items info-bullets";>Moon to Earth: ${moonDistance} km</li>
+        <li class="info-items info-bullets";>Sun to Earth: ${sunDistance} km</li>
       </ul>
+    `;
+
 
     
-    
-    
-    `;
     singleImageDiv.appendChild(infoPageCont);
 
 
@@ -138,35 +134,11 @@ async function makeImageSlide(){
   
   slideWrap.appendChild(slidePrevButton);
   slideWrap.appendChild(slideNexButton);
-
-  // for (let index = 0; index < ImgIdList.length; index++) {
-  //   const infoPageCont = document.createElement('div'); // info-page
-  //   infoPageCont.className = 'info-page-cont'; // info-page
-  //   infoPageCont.innerHTML = `
-  //   <h3><a href="";>${ImgIdList[index].value}</a></h3></br>
-  //   <p>Distance to Earth:</p>
-  //   `;
-  //   singleImageDiv[0].appendChild(infoPageCont);
-  // }
-
+  slideCont.appendChild(slideWrap);
+  
 
   const runSlides = await showSlides(slideIndex);
 }
-
-
-
-
-// async function createInfoPage(a) {
-//   const infoPageCont = document.createElement('div');
-//   infoPageCont.className = 'info-page-cont';
-//   infoPageCont.innerHTML = `
-//     <h3><a href="";>${a[index]}</a></h3></br>
-//     <p>Distance to Earth:</p>
-//   `;
-
-
-  
-// }
 
 
 
@@ -178,7 +150,6 @@ function plusSlides(n) {
 async function showSlides(n) {
   let i;
   let slides = document.getElementsByClassName("single-image-div");
-  //let dots = document.getElementsByClassName("dot");
   if (n > slides.length) {slideIndex = 1}
   if (n < 1) {slideIndex = slides.length}
   for (i = 0; i < slides.length; i++) {

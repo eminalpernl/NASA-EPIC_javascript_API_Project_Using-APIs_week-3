@@ -63,6 +63,16 @@ header{
 
 }
 
+.fixed-text{
+    width: 80%;
+    font-family: sans-serif;
+    margin: auto;
+    color: #f2f2f2;
+    font-size: .8em;
+    line-height: 2em;
+}
+
+
 .user-interface{
     display: flex;
     flex-direction: column;
@@ -81,7 +91,7 @@ header{
     align-items: center;
     margin: 10px;
     padding: 15px;
-    border: 2px solid rgb(48, 181, 181);
+    border: 2px solid gray;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
 }
@@ -120,6 +130,7 @@ header{
 }
 
 .select-box{
+    display: none;
     padding: 5px 20px;
     margin: auto;
     width: 80vw ;
@@ -156,13 +167,14 @@ header{
 .single-image-div {
     text-align: center;
     flex-direction: column;
+    margin-top: 50px;
 }
 
 
 .prev, .next {
     cursor: pointer;
     position: absolute;
-    top: 50%;
+    top: 33%;
     width: auto;
     margin-top: -22px;
     padding: 16px;
@@ -201,18 +213,48 @@ header{
   
 .img-on-slides{
     margin: auto;
-    max-width: 80%;  
+    max-width: 80%;
+    margin-top: 15px;
 }
 
 .info-page-cont{
-    border: 3px solid white;
-    background-color: #f2f2f2;
+    
+    border: 3px solid gray;
+    /* background-color: #f2f2f2; */
+    margin-bottom: 30px;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+
+}
+
+.info-ul{
+    /* padding: 10px; */
+    list-style-type: none;
+    width: 100%;
 }
 
 .info-items{
-    color: #050000;
-
+    color: #ffffff;
+    text-align: left;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: .7rem;
 }
+
+.info-bullets{
+    padding:10px 10px ;
+}
+
+.info-bullets a{
+    text-decoration: none;
+    color: #fffb12;
+    
+}
+
+.info-title{
+    background-color: gray;
+    font-size: .9rem;
+}
+    
 
 
 footer{
