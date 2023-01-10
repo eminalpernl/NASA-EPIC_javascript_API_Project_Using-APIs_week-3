@@ -26,12 +26,13 @@ async function fetchData(url) {
     const data = await response.json();
     console.log(data);
 
-    if (data.length > 0) {
-      return data;
-    } else {
-      errorHandler();
-    }
-    //return data;
+    // if (data.length > 0) {
+    //   return data;
+    // } else {
+    //   errorHandler();
+    // }
+    return data;
+    
     
   // } catch (error) {
   //   console.log(error);
@@ -74,7 +75,13 @@ async function fetchImageDate2() {
     userInterface[0].appendChild(listWrap);
     const URL = `${API}${dateInput.value}?api_key=${API_KEY}`;
     console.log(URL);
+
     const jsonData = await fetchData(URL);
+
+    if (jsonData.length<1) {
+      return errorHandler();
+    }
+
     //console.log(jsonData);
     for (let index = 0; index < jsonData.length; index++) {
         const element = document.createElement('option');
