@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Daily data from EPIC</title>
     <link rel="stylesheet" href="style.css"></link>
+    <style> @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;600&family=Space+Mono:wght@400;700&display=swap'); </style>
     <script src="https://kit.fontawesome.com/5f9f433669.js" crossorigin="anonymous"></script>
   </head>
   <body>
@@ -18,7 +19,8 @@
     </header>
 
     <div class="fixed-text">
-      <h3>EPIC DAILY “BLUE MARBLE”</h3></br>
+      <h1>EPIC DAILY</h1></br>
+      <h2>“BLUE MARBLE”</h2></br>
         <span>
 The EPIC provides information on the daily imagery collected by DSCOVR's Earth Polychromatic Imaging Camera (EPIC) instrument. Uniquely positioned at the Earth-Sun Lagrange point, EPIC provides full disc imagery of the Earth and captures unique perspectives of certain astronomical events such as lunar transits using a 2048x2048 pixel CCD (Charge Coupled Device) detector coupled to a 30-cm aperture Cassegrain telescope.
 
@@ -31,20 +33,27 @@ Development of the EPIC began in 2015, and is supported by the web development t
     <div class="user-interface">
       <div class="form-wrap">
         <form action="" class="query-form">
-            <label for="date-input" class="label">Date Input:</label>
-            <input type="text" id="date-input" value="2023-01-05" placeholder="YYYY-MM-DD"></input><br><br>
+            <label for="date-input" class="label">Pick a date:</label>
+            <input type="date" id="date-input" value="YYYY-MM-DD" min="2015-06-13">
             <input type="button" id="button" value="List"></input>
           </form>
       </div>
       
     </div> 
     <footer>
-      <div>
-        <a href=""><span class="sm-logos"><i class="fa-regular fa-envelope"></i></span> eminalpernl@gmail.com</a></br>
-        <a href=""><span class="sm-logos"><i class="fa-brands fa-github"></i></span> github.com/eminalpernl</a></br>
-        <a href=""><span class="sm-logos"><i class="fa-brands fa-linkedin"></i></span></i> https://www.linkedin.com/in/muhammet-emin-alper-nl88/</a>
+      <div class="footer-left-part">
+        <a href="eminalpernl@gmail.com"><span class="sm-logos"><i class="fa-regular fa-envelope"></i></span> Contact</a></br>
+        <a href="github.com/eminalpernl" target="_blank"><span class="sm-logos"><i class="fa-brands fa-github"></i></span> GitHub</a></br>
+        <a href="https://www.linkedin.com/in/muhammet-emin-alper-nl88/" target="_blank"><span class="sm-logos"><i class="fa-brands fa-linkedin"></i></span></i> LinkedIn</a>
 
-      </div>   
+      </div>
+
+      <div class="footer-right-part">
+        <a href="https://epic.gsfc.nasa.gov/about/epic" target="_blank"> About EPIC</a></br>
+        <a href="https://epic.gsfc.nasa.gov/about/api" target="_blank"> NASA EPIC API</a></br>
+        <a href="https://epic.gsfc.nasa.gov/galleries" target="_blank"> EPIC Galleries</a>
+
+      </div>  
     </footer>
     <script src="app.js"></script>
   </body>
