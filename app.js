@@ -12,60 +12,29 @@ const slideCont = document.createElement('div');
 const queryForm = document.getElementsByClassName('query-form');
 const errorMessage = document.createElement('span');
 
-// async function fetchData(url) {
-//   const response = await fetch(url);
-//   const data = await response.json();
-//   console.log(data);
-//   return data;
-// }
 
 async function fetchData(url) {
- // try {
     
     const response = await fetch(url);
     const data = await response.json();
     console.log(data);
-
-    // if (data.length > 0) {
-    //   return data;
-    // } else {
-    //   errorHandler();
-    // }
     return data;
-    
-    
-  // } catch (error) {
-  //   console.log(error);
-  //   errorHandler(x);
-
-  // }
-
-
 }
 
 
 function errorHandler(x) {
+
   errorMessage.innerHTML = "";
-  // const queryForm = document.getElementsByClassName('query-form');
-  // const errorMessage = document.createElement('span');
-  
   errorMessage.className = 'error-message';
   errorMessage.innerHTML = 'Tip: There is no photos for this day. Pick up another day !';
-  queryForm[0].appendChild(errorMessage);
-
-  
-
-  // console.log(x);
-  
+  queryForm[0].appendChild(errorMessage);  
   console.log('hata');
   console.log(x);
   return x;
-  
 }
 
 async function fetchImageDate2() {
 
-    
     listWrap.innerHTML = "";
     errorMessage.innerHTML = "";
     const dateList = document.createElement("select");
@@ -113,7 +82,6 @@ async function fetchImage() {
   });
 
   const printIdList = await makeImageSlide();
-
 }
 
 async function makeImageSlide(){
@@ -167,7 +135,6 @@ async function makeImageSlide(){
     const moonDistance = Math.floor(Math.sqrt(moonCoords.x**2 + moonCoords.y**2 + moonCoords.z**2));
 
 
-
     const infoPageCont = document.createElement('div'); // info-page
     infoPageCont.className = 'info-page-cont'; // info-page
     infoPageCont.innerHTML = `
@@ -180,9 +147,6 @@ async function makeImageSlide(){
         <li class="info-items info-bullets";>Sun to Earth: ${sunDistance} km</li>
       </ul>
     `;
-
-
-   
     singleImageDiv.appendChild(infoPageCont);
 
 
@@ -191,8 +155,6 @@ async function makeImageSlide(){
   slideWrap.appendChild(slidePrevButton);
   slideWrap.appendChild(slideNexButton);
   slideCont.appendChild(slideWrap);
-  
-
   const runSlides = await showSlides(slideIndex);
 }
 
