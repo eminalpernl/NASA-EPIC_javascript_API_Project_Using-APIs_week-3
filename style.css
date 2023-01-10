@@ -94,13 +94,21 @@ h2{
 
 .form-wrap{
     display: flex;
+    flex-direction: column;
     text-align: center;
     margin-bottom: 10px;
 }
+
+.error-message{
+    color: red;
+    padding: 15px 0;
+    font: bold .6em 'Space Mono', monospace;
+}
+
 .query-form{
 
     width: 80vw;
-    height: 15vh;
+    height: 20vh;
     display: grid;
     grid-template-areas: 
         "label label button "
@@ -255,7 +263,11 @@ h2{
     text-align: center;
 }
   
-  
+.img-on-sld-wrap{
+    max-width: 100%;
+}
+
+
 .img-on-slides{
     margin: auto;
     max-width: 80%;
@@ -350,20 +362,47 @@ footer div a:hover{
         "infoP sld"
         "infoP ctr"
         ;
+        /* column-gap: 150px; */
+    }
 
+    .img-on-sld-wrap{
+        max-width: 80%;
+        margin-left: auto;
+        /* padding-left: 70px; */
     }
 
     .img-on-slides{
         grid-area: sld;
+        /* margin-left: 150px; */
     }
 
     .img-counter{
         grid-area: ctr;
+        margin-left: 8%;
     }
     .info-page-cont{
         grid-area: infoP;
     }
     
+    .next, .prev{
+        top: 45%;
+    }
+
+    .prev{
+        right: 45%;
+    }
+
+    .next{
+        right: 5%;
+    }
+
+    .error-message{
+        color: red;
+        padding: 15px 0;
+        font: bold 1.3em 'Space Mono', monospace;
+    }
+
+
   }
 
 

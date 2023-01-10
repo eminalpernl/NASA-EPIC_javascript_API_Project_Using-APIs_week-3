@@ -9,19 +9,64 @@ const button = document.getElementById('button');
 const listWrap = document.createElement('div');
 const API_KEY = 'CR6PmDZLb5fTpRM9XpBhg7Ptm55c56rv8q5xfzxq';
 const slideCont = document.createElement('div');
+const queryForm = document.getElementsByClassName('query-form');
+const errorMessage = document.createElement('span');
+
+// async function fetchData(url) {
+//   const response = await fetch(url);
+//   const data = await response.json();
+//   console.log(data);
+//   return data;
+// }
 
 async function fetchData(url) {
-  const response = await fetch(url);
-  const data = await response.json();
-  console.log(data);
-  return data;
+ // try {
+    
+    const response = await fetch(url);
+    const data = await response.json();
+    console.log(data);
+
+    if (data.length > 0) {
+      return data;
+    } else {
+      errorHandler();
+    }
+    //return data;
+    
+  // } catch (error) {
+  //   console.log(error);
+  //   errorHandler(x);
+
+  // }
+
+
 }
 
+
+function errorHandler(x) {
+  errorMessage.innerHTML = "";
+  // const queryForm = document.getElementsByClassName('query-form');
+  // const errorMessage = document.createElement('span');
+  
+  errorMessage.className = 'error-message';
+  errorMessage.innerHTML = 'Tip: There is no photos for this day. Pick up another day !';
+  queryForm[0].appendChild(errorMessage);
+
+  
+
+  // console.log(x);
+  
+  console.log('hata');
+  console.log(x);
+  return x;
+  
+}
 
 async function fetchImageDate2() {
 
     
     listWrap.innerHTML = "";
+    errorMessage.innerHTML = "";
     const dateList = document.createElement("select");
     dateList.className='select-box';
     listWrap.className= 'list-wrap';
@@ -30,7 +75,7 @@ async function fetchImageDate2() {
     const URL = `${API}${dateInput.value}?api_key=${API_KEY}`;
     console.log(URL);
     const jsonData = await fetchData(URL);
-    console.log(jsonData);
+    //console.log(jsonData);
     for (let index = 0; index < jsonData.length; index++) {
         const element = document.createElement('option');
         element.value = jsonData[index].image;
@@ -89,16 +134,20 @@ async function makeImageSlide(){
   for (let index = 0; index < jsonData.length; index++) {
     const singleImageDiv = document.createElement('div');
     singleImageDiv.className = 'single-image-div';
+    const imgOnSldWrap = document.createElement('div');
+    imgOnSldWrap.className = 'img-on-sld-wrap';
+    
+    singleImageDiv.appendChild(imgOnSldWrap);
     const img = document.createElement('img');
-    const captionDiv = document.createElement('div');
-    captionDiv.className='img-counter';
-    captionDiv.innerText=`${index+1}  /  ${jsonData.length}`;
+    const imgCounter = document.createElement('div');
+    imgCounter.className='img-counter';
+    imgCounter.innerText=`${index+1}  /  ${jsonData.length}`;
     const imgUrl = `${imgApi}${inputValue}/png/${jsonData[index].image}.png?api_key=${API_KEY}`;
     img.alt = 'earth';
     img.src = imgUrl;
     img.classList='img-on-slides';
-    singleImageDiv.appendChild(img);
-    singleImageDiv.appendChild(captionDiv);
+    imgOnSldWrap.appendChild(img);
+    singleImageDiv.appendChild(imgCounter);
     slideWrap.appendChild(singleImageDiv);
     userInterface[0].appendChild(slideWrap);
 
@@ -126,7 +175,7 @@ async function makeImageSlide(){
     `;
 
 
-    
+   
     singleImageDiv.appendChild(infoPageCont);
 
 
