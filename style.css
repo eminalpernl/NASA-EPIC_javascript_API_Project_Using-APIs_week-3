@@ -95,7 +95,7 @@ h2{
 .form-wrap{
     display: flex;
     text-align: center;
-    margin-bottom: 5vh;
+    margin-bottom: 10px;
 }
 .query-form{
 
@@ -156,7 +156,7 @@ h2{
     border-radius: 5px;
     border: 2px solid #530c53;
     color: rgb(255, 255, 255);
-    transition: 0.6s ease;
+    transition: 0.4s ease;
 }
 
 /* #button[value=list]{
@@ -207,14 +207,14 @@ h2{
 .single-image-div {
     text-align: center;
     flex-direction: column;
-    margin-top: 50px;
+    margin-top: 20px;
 }
 
 
 .prev, .next {
     cursor: pointer;
     position: absolute;
-    top: 33%;
+    top: 27%;
     width: auto;
     margin-top: -22px;
     padding: 16px;
@@ -239,10 +239,15 @@ h2{
     background-color: rgb(90, 0, 135);
 }
 
+#button:active{
+    background-color: #f2f2f2;
+}
 .img-counter {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: .8rem;
+    /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1.2rem;*/
     color: #f2f2f2;
+    font: 400 1.3em 'Space Mono', monospace;
+    letter-spacing: .4em;
     padding: 15px 12px;
     /* position: absolute; */
     /* bottom: 15px; */
@@ -261,6 +266,7 @@ h2{
     
     border: 3px solid gray;
     /* background-color: #f2f2f2; */
+    margin-top: 15px;
     margin-bottom: 30px;
     border-bottom-right-radius: 15px;
     border-bottom-left-radius: 15px;
@@ -276,8 +282,10 @@ h2{
 .info-items{
     color: #ffffff;
     text-align: left;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 1.2rem;
+    /* font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.2rem; */
+    font: 400 1.3em/1.8em 'Space Mono', monospace;
+
 }
 
 .info-bullets{
@@ -294,6 +302,7 @@ h2{
 .info-title{
     background-color: gray;
     font-size: 1.4rem;
+    padding: 10px 20px;
 }
     
 
@@ -303,6 +312,7 @@ footer{
     background-color: rgb(31, 32, 43);
     margin-top: auto;
     padding: 5%;
+    height: 30vh;
 
 }
 
@@ -335,9 +345,25 @@ footer div a:hover{
 
 
 @media only screen and (min-width: 1024px) {
-    body {
-      display: none;
+    .single-image-div {
+        grid-template-areas: 
+        "infoP sld"
+        "infoP ctr"
+        ;
+
     }
+
+    .img-on-slides{
+        grid-area: sld;
+    }
+
+    .img-counter{
+        grid-area: ctr;
+    }
+    .info-page-cont{
+        grid-area: infoP;
+    }
+    
   }
 
 

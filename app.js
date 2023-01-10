@@ -92,7 +92,7 @@ async function makeImageSlide(){
     const img = document.createElement('img');
     const captionDiv = document.createElement('div');
     captionDiv.className='img-counter';
-    captionDiv.innerText=`${index+1}/${jsonData.length}`;
+    captionDiv.innerText=`${index+1}  /  ${jsonData.length}`;
     const imgUrl = `${imgApi}${inputValue}/png/${jsonData[index].image}.png?api_key=${API_KEY}`;
     img.alt = 'earth';
     img.src = imgUrl;
@@ -118,7 +118,7 @@ async function makeImageSlide(){
       <ul class="info-ul";>
         <li class="info-items info-title ";>Image Information</li>
         <li class="info-items info-bullets";>Date: ${jsonData[index].date.split(" ")[0]}</li>
-        <li class="info-items info-bullets";><a href="${imgUrl}"; target="_blank"><i class="fa-solid fa-download"></i>  ${ImgIdList[index].value}.png</a></li>
+        <li class="info-items info-bullets";><a href="${imgUrl}"; target="_blank"><i class="fa-solid fa-download"></i>  Download Image</a></li>
         <li class="info-items info-bullets";>DSCVR to Earth: ${earthDistance} km</li>
         <li class="info-items info-bullets";>Moon to Earth: ${moonDistance} km</li>
         <li class="info-items info-bullets";>Sun to Earth: ${sunDistance} km</li>
@@ -155,7 +155,7 @@ async function showSlides(n) {
   for (i = 0; i < slides.length; i++) {
     slides[i].style.display = "none";
   }
-  slides[slideIndex-1].style.display = "flex";
+  slides[slideIndex-1].style.display = "grid";
 }
 
 
