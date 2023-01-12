@@ -17,19 +17,24 @@ async function fetchData(url) {
     
     const response = await fetch(url);
     const data = await response.json();
-    console.log(data);
     return data;
 }
 
 
 function errorHandler(x) {
 
-  errorMessage.innerHTML = "";
   errorMessage.className = 'error-message';
   errorMessage.innerHTML = 'Tip: There is no photos for this day. Pick up another day !';
   queryForm[0].appendChild(errorMessage);  
-  console.log('hata');
-  console.log(x);
+  return x;
+}
+
+
+function errorHandler2(x) {
+
+  errorMessage.className = 'error-message';
+  errorMessage.innerHTML = 'Tip: Pick a date first !';
+  queryForm[0].appendChild(errorMessage);  
   return x;
 }
 
@@ -43,7 +48,6 @@ async function fetchImageDate2() {
     listWrap.appendChild(dateList);
     userInterface[0].appendChild(listWrap);
     const URL = `${API}${dateInput.value}?api_key=${API_KEY}`;
-    console.log(URL);
 
     const jsonData = await fetchData(URL);
 
@@ -51,7 +55,6 @@ async function fetchImageDate2() {
       return errorHandler();
     }
 
-    //console.log(jsonData);
     for (let index = 0; index < jsonData.length; index++) {
         const element = document.createElement('option');
         element.value = jsonData[index].image;
@@ -67,15 +70,19 @@ async function fetchImage() {
   imgWrap.className = 'img-wrap';
   const earthImg = document.createElement('img');
   const selected = document.getElementsByClassName('select-box');
+
+  if (dateInput.value<1) {
+    return errorHandler2();
+  }
+
+
   const inputValue = (dateInput.value).split('-').join('/');
   selected[0].addEventListener('change', async (event) => {
     imgWrap.innerHTML='';
     const grabImageId = event.target.value;
     const imgUrl = `${imgApi}${inputValue}/png/${grabImageId}.png?api_key=${API_KEY}`;
-    console.log(grabImageId);
     imgWrap.appendChild(earthImg);
     userInterface[0].appendChild(imgWrap);
-    console.log(imgUrl);
     earthImg.className = 'earth-image';
     earthImg.src = imgUrl;
     earthImg.alt = 'Earth';
@@ -102,7 +109,6 @@ async function makeImageSlide(){
   const slideWrap = document.createElement('div');
   slideWrap.className = 'slide-wrap';
   const jsonData = await fetchData(URL);
-  console.log(URL);
 
   
   
@@ -111,7 +117,6 @@ async function makeImageSlide(){
     singleImageDiv.className = 'single-image-div';
     const imgOnSldWrap = document.createElement('div');
     imgOnSldWrap.className = 'img-on-sld-wrap';
-    
     singleImageDiv.appendChild(imgOnSldWrap);
     const img = document.createElement('img');
     const imgCounter = document.createElement('div');
